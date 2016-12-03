@@ -7,6 +7,10 @@
 #include "ui/UIText.h"
 #include <vector>
 #include <mutex>
+#include <string>
+#include <iterator>
+#include "Manager.h"
+
 struct EventCb{
 	pc_client_t* client;
 	int ev_type;
@@ -21,9 +25,6 @@ public:
 
     virtual bool init();
     
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-    
     // implement the "static create()" method manually
     CREATE_FUNC(ChatRoom);
 // pomelo
@@ -31,15 +32,21 @@ public:
 	int handler_id;
 	std::string roleName;
 	std::string roomId;
+	//static void request_cb(const pc_request_t* req, int rc, const char* resp);
 	static void request_cb(const pc_request_t* req, int rc, const char* resp);
 	static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2);
 	void connectToServer(int port);
 	void addMsg(std::string router, std::string msg);
+//
 	cocos2d::ui::ListView * listView;
 	std::vector<EventCb> eventCbArray;
 	std::mutex eventMutex;
 	void update(float delta);
 
+
+	bool isEnter;
+	std::set<std::string> usernameList;
+	cocos2d::ui::ListView * userlistView;
 };
 
 #endif // __ChatRoom_SCENE_H__

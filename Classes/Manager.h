@@ -1,0 +1,32 @@
+#ifndef __MANAGER_H__
+#define __MANAGER_H__
+
+
+#include "cocos2d.h"
+#include <string>
+#include <set>
+
+USING_NS_CC;
+
+/*
+以单例模式实现Manager
+用来管理类似子弹，怪物等
+*/
+class  Manager
+{
+public:
+
+	static Manager * getInstance();
+	static void freeInstance(void);
+
+public:
+	static Manager * m_manager;
+	Manager();
+	bool init();
+
+public:
+	std::set<std::string> m_list;
+
+};
+
+#endif //
